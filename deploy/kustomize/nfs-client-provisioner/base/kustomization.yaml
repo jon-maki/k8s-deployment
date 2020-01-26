@@ -1,0 +1,11 @@
+resources:
+  - namespace.yaml
+  - class.yaml
+  - deployment.yaml
+  - rbac.yaml
+
+namespace: nfs
+
+replicas:
+  - name: nfs-client-provisioner
+    count: 1

@@ -1,0 +1,9 @@
+resources:
+  - ../../base
+
+replicas:
+  - name: traefik
+    count: 1
+
+patchesStrategicMerge:
+  - service.yaml

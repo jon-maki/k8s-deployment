@@ -1,0 +1,25 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-admin-redirectregex
+spec:
+  redirectRegex:
+    regex: ^http://(.*)/dashboard$
+    replacement: http://${1}/dashboard/
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-admin
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: PathPrefix(`/api`) || PathPrefix(`/dashboard`)
+    kind: Rule
+    priority: 1
+    middlewares:
+    - name: traefik-admin-redirectregex
+    services:
+    - name: traefik-admin
+      port: 8080
